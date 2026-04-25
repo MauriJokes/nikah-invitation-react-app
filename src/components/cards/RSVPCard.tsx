@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useT } from '@/context/LanguageContext'
 import { submitRsvp } from '@/services/rsvpService'
+import { FocusInput, FocusTextarea, FocusSelect } from '@/components/FocusInput'
 
 interface FormData {
   name: string
@@ -118,7 +119,7 @@ export default function RSVPCard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label style={labelStyle} htmlFor="rsvp-name">{t.rsvp_labelName}</label>
-            <input
+            <FocusInput
               id="rsvp-name"
               type="text"
               required
@@ -158,7 +159,7 @@ export default function RSVPCard() {
         {form.attending === 'yes' && (
           <div>
             <label style={labelStyle} htmlFor="rsvp-guests">{t.rsvp_labelGuests}</label>
-            <select
+            <FocusSelect
               id="rsvp-guests"
               style={inputStyle}
               value={form.guests}
@@ -169,17 +170,17 @@ export default function RSVPCard() {
                   {n} {n === 1 ? t.rsvp_guestSingular : t.rsvp_guestPlural}
                 </option>
               ))}
-            </select>
+            </FocusSelect>
           </div>
         )}
 
         {/* Message */}
         <div>
             <label style={labelStyle} htmlFor="rsvp-message">{t.rsvp_labelMessage}</label>
-          <textarea
+          <FocusTextarea
             id="rsvp-message"
             rows={3}
-              placeholder={t.rsvp_placeholderMessage}
+            placeholder={t.rsvp_placeholderMessage}
             style={{ ...inputStyle, resize: 'none' }}
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}

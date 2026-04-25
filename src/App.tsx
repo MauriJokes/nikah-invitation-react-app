@@ -4,6 +4,7 @@ import Envelope from '@/components/Envelope'
 import ScatteredLayout from '@/components/ScatteredLayout'
 import BackgroundParticles from '@/components/BackgroundParticles'
 import { LanguageProvider, useLang, useT } from '@/context/LanguageContext'
+import { useFocusReset } from '@/hooks/useFocusReset'
 
 type AppState = 'envelope' | 'cards'
 
@@ -11,6 +12,8 @@ function AppInner() {
   const [appState, setAppState] = useState<AppState>('envelope')
   const t = useT()
   const { lang, setLang } = useLang()
+
+  useFocusReset()
 
   // ── Music ──────────────────────────────────────────────────────────────────
   // Place your audio file at public/music.mp3 (any royalty-free wedding track).

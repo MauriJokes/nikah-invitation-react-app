@@ -6,6 +6,7 @@ import {
   useTransform,
   animate,
 } from 'framer-motion'
+import { FocusInput, FocusTextarea } from '@/components/FocusInput'
 import type { MotionValue } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useT } from '@/context/LanguageContext'
@@ -395,7 +396,7 @@ export default function GreetingCard() {
 
       {/* Wish form */}
       <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col gap-4">
-        <input
+        <FocusInput
           type="text"
           placeholder={t.greeting_namePlaceholder}
           required
@@ -403,7 +404,7 @@ export default function GreetingCard() {
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           style={inputStyle}
         />
-        <textarea
+        <FocusTextarea
           placeholder={t.greeting_messagePlaceholder}
           required
           rows={3}
