@@ -134,6 +134,7 @@ export default function GreetingCard() {
   const [toastVisible, setToastVisible] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [isAnonymous, setIsAnonymous] = useState(false)
 
   const deckOffset = useMotionValue(0)
   const total = greetings.length
@@ -175,11 +176,13 @@ export default function GreetingCard() {
     setActiveIndex(0)
     animate(deckOffset, 0, { type: 'spring', stiffness: 300, damping: 30 })
     setForm({ name: '', message: '' })
+    setIsAnonymous(false)
 
     try {
       const confirmed = await submitGreeting({
         name: optimistic.name,
         message: optimistic.message,
+        isAnonymous,
       })
       // Replace optimistic entry with server-confirmed one (real id)
       setGreetings((prev) =>
@@ -366,7 +369,7 @@ export default function GreetingCard() {
         className="text-center mb-8"
         style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: '#9CA3AF' }}
       >
-        {t.greeting_counter(activeIndex + 1, total)}
+        {t.greeting_counter(total !== 0 ? activeIndex + 1 : 0, total)}
       </p>
 
       {/* Section divider */}
@@ -412,6 +415,53 @@ export default function GreetingCard() {
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           style={{ ...inputStyle, resize: 'none' }}
         />
+        {/* Anonymous toggle — always visible below message */}
+        <label
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginTop: '-4px',
+            cursor: 'pointer',
+            userSelect: 'none',
+          }}
+        >
+          <span
+            role="checkbox"
+            aria-checked={isAnonymous}
+            tabIndex={0}
+            onClick={() => setIsAnonymous((v) => !v)}
+            onKeyDown={(e) => (e.key === ' ' || e.key === 'Enter') && setIsAnonymous((v) => !v)}
+            style={{
+              width: '36px',
+              height: '20px',
+              borderRadius: '999px',
+              background: isAnonymous ? 'rgba(175, 203, 255, 0.75)' : 'rgba(255,255,255,0.8)',
+              border: '1px solid rgba(175, 203, 255, 0.5)',
+              position: 'relative',
+              flexShrink: 0,
+              transition: 'background 0.2s',
+              display: 'inline-block',
+            }}
+          >
+            <span
+              style={{
+                position: 'absolute',
+                top: '2px',
+                left: isAnonymous ? '18px' : '2px',
+                width: '14px',
+                height: '14px',
+                borderRadius: '50%',
+                background: isAnonymous ? '#fff' : 'rgba(175, 203, 255, 0.6)',
+                transition: 'left 0.2s',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+              }}
+            />
+          </span>
+          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: '#6B7280' }}>
+            {t.greeting_anonymous}
+          </span>
+        </label>
         <button
           type="submit"
           disabled={!form.name.trim() || !form.message.trim() || submitting}

@@ -5,6 +5,7 @@ export interface RsvpPayload {
   attendance: 'yes' | 'no'
   guests: number
   message?: string
+  isAnonymous: boolean
 }
 
 /** POST /api/rsvp — returns void (backend responds 201 or 204). */

@@ -1,7 +1,7 @@
 // Base URL from environment variable.
 // Set VITE_API_URL in your .env file, e.g.:
 //   VITE_API_URL=https://your-backend.example.com
-const BASE_URL: string = (import.meta.env.VITE_API_URL as string | undefined) ?? ''
+const BASE_URL: string = (import.meta.env.VITE_API_URL as string | undefined) ?? "http://localhost:3000"
 
 export class ApiError extends Error {
   constructor(

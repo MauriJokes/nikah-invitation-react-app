@@ -9,6 +9,7 @@ export interface Greeting {
 export interface NewGreetingPayload {
   name: string
   message: string
+  isAnonymous: boolean
 }
 
 /** GET /api/greetings — returns array ordered newest-first. */

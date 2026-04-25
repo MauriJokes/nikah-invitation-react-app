@@ -21,6 +21,7 @@ export default function RSVPCard() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isAnonymous, setIsAnonymous] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,8 +33,10 @@ export default function RSVPCard() {
         attendance: form.attending as 'yes' | 'no',
         guests: Number(form.guests),
         message: form.message || undefined,
+        isAnonymous,
       })
       setSubmitted(true)
+      setIsAnonymous(false)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {
@@ -185,6 +188,62 @@ export default function RSVPCard() {
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
           />
+          {/* Anonymous toggle — only visible when message has content */}
+          <div
+            style={{
+              overflow: 'hidden',
+              maxHeight: form.message.trim() ? '40px' : '0',
+              opacity: form.message.trim() ? 1 : 0,
+              transition: 'max-height 0.25s ease, opacity 0.2s ease',
+              marginTop: form.message.trim() ? '8px' : '0',
+            }}
+          >
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                userSelect: 'none',
+              }}
+            >
+              <span
+                role="checkbox"
+                aria-checked={isAnonymous}
+                tabIndex={form.message.trim() ? 0 : -1}
+                onClick={() => setIsAnonymous((v) => !v)}
+                onKeyDown={(e) => (e.key === ' ' || e.key === 'Enter') && setIsAnonymous((v) => !v)}
+                style={{
+                  width: '36px',
+                  height: '20px',
+                  borderRadius: '999px',
+                  background: isAnonymous ? 'rgba(175, 203, 255, 0.75)' : 'rgba(255,255,255,0.8)',
+                  border: '1px solid rgba(175, 203, 255, 0.5)',
+                  position: 'relative',
+                  flexShrink: 0,
+                  transition: 'background 0.2s',
+                  display: 'inline-block',
+                }}
+              >
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '2px',
+                    left: isAnonymous ? '18px' : '2px',
+                    width: '14px',
+                    height: '14px',
+                    borderRadius: '50%',
+                    background: isAnonymous ? '#fff' : 'rgba(175, 203, 255, 0.6)',
+                    transition: 'left 0.2s',
+                    boxShadow: '0 1px 3px rgba(0,0,0,0.15)',
+                  }}
+                />
+              </span>
+              <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.78rem', color: '#6B7280' }}>
+                {t.rsvp_anonymous}
+              </span>
+            </label>
+          </div>
         </div>
 
         <button

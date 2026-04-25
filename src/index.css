@@ -37,3 +37,11 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+/* One-shot entrance animation for EventTimeline items.
+   Using CSS @keyframes means the browser runs it exactly once on mount
+   and it is completely immune to React or Framer Motion re-renders. */
+@keyframes tl-fade-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
