@@ -54,8 +54,8 @@ function AppInner() {
         onClick={() => setLang(lang === 'ms' ? 'en' : 'ms')}
         style={{
           position: 'fixed',
-          top: 16,
-          right: 16,
+          bottom: 20,
+          left: 20,
           zIndex: 300,
           fontFamily: 'Inter, sans-serif',
           fontSize: '0.72rem',
