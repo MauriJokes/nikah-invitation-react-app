@@ -1,0 +1,268 @@
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { useT } from '@/context/LanguageContext'
+
+interface EnvelopeProps {
+  onOpen: () => void
+}
+
+// 5 cards fan out from inside the envelope after the flap lifts
+// xOffset: horizontal spread from envelope center (110px)
+// yBoost: extra upward lift for the arc shape
+// rotation: final resting tilt
+// delay: stagger offset in seconds
+const EMERGING_CARDS = [
+  { xOffset: -74, yBoost: 0,  rotation: -16, delay: 0.05 },
+  { xOffset: -34, yBoost: 10, rotation:  -7, delay: 0.13 },
+  { xOffset:   4, yBoost: 14, rotation:   1, delay: 0.19 },
+  { xOffset:  42, yBoost: 10, rotation:   8, delay: 0.27 },
+  { xOffset:  79, yBoost:  0, rotation:  15, delay: 0.35 },
+]
+
+export default function Envelope({ onOpen }: EnvelopeProps) {
+  const [isOpening, setIsOpening] = useState(false)
+  const [showCards, setShowCards] = useState(false)
+  const t = useT()
+
+  const handleClick = () => {
+    if (isOpening) return
+    setIsOpening(true)
+    // Start cards after flap has visibly lifted (~350ms)
+    setTimeout(() => setShowCards(true), 350)
+    // Give cards time to settle before transition to scattered layout
+    setTimeout(onOpen, 1700)
+  }
+
+  return (
+    <AnimatePresence>
+      {!isOpening && (
+        <motion.div
+          className="flex flex-col items-center gap-6 cursor-pointer select-none"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: -20 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          onClick={handleClick}
+        >
+          {/* Ambient glow */}
+          <div className="relative">
+            <div
+              className="absolute inset-0 rounded-full blur-3xl opacity-40"
+              style={{
+                background: 'radial-gradient(circle, #AFCBFF 0%, transparent 70%)',
+                transform: 'scale(1.8)',
+              }}
+            />
+
+            {/* Envelope SVG — overflow:visible prevents flap path from being clipped */}
+            <motion.svg
+              width="220"
+              height="160"
+              viewBox="0 0 220 160"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              overflow="visible"
+              whileHover={{ scale: 1.05, y: -4 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              style={{ filter: 'drop-shadow(0 20px 40px rgba(175, 203, 255, 0.5))', overflow: 'visible' }}
+            >
+              {/* Envelope body */}
+              <rect
+                x="2"
+                y="2"
+                width="216"
+                height="156"
+                rx="10"
+                fill="#AFCBFF"
+                stroke="#9BBEF0"
+                strokeWidth="1.5"
+              />
+
+              {/* Inner envelope lighter shade */}
+              <rect
+                x="8"
+                y="8"
+                width="204"
+                height="144"
+                rx="7"
+                fill="#C8DEFF"
+                opacity="0.4"
+              />
+
+              {/* Bottom fold left */}
+              <path
+                d="M2 152 L110 90 L2 40"
+                fill="#9BBEF0"
+                opacity="0.5"
+              />
+              {/* Bottom fold right */}
+              <path
+                d="M218 152 L110 90 L218 40"
+                fill="#9BBEF0"
+                opacity="0.5"
+              />
+
+              {/* Center V flap (closed) */}
+              <path
+                d="M2 12 L110 88 L218 12"
+                fill="#AFCBFF"
+                stroke="#9BBEF0"
+                strokeWidth="1.5"
+              />
+
+              {/* Wax seal */}
+              <circle cx="110" cy="90" r="18" fill="#F7E8A4" stroke="#E8D080" strokeWidth="1.5" />
+              <text
+                x="110"
+                y="95"
+                textAnchor="middle"
+                fontSize="16"
+                fill="#8B7D40"
+                style={{ fontFamily: 'serif' }}
+              >
+                ♡
+              </text>
+            </motion.svg>
+          </div>
+
+          {/* Label */}
+          <motion.div
+            className="text-center"
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <p
+              className="text-base tracking-widest uppercase"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                color: '#6B7280',
+                fontSize: '0.75rem',
+                letterSpacing: '0.2em',
+              }}
+            >
+              {t.tapToOpen}
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Opening animation */}
+      {isOpening && (
+        <motion.div
+          // Explicit size matches the SVG so absolute card positions are predictable
+          style={{ position: 'relative', width: '220px', height: '160px' }}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.55, delay: 1.25 }}
+        >
+          {/* ── Emerging invitation cards ─────────────────────────── */}
+          <AnimatePresence>
+            {showCards &&
+              EMERGING_CARDS.map((card, i) => (
+                <motion.div
+                  key={i}
+                  style={{
+                    position: 'absolute',
+                    // Center in container (110px) + spread, adjusted for card half-width (27px)
+                    left: `${110 + card.xOffset - 27}px`,
+                    // Start anchored near top of envelope body
+                    top: '38px',
+                    width: '54px',
+                    height: '76px',
+                    zIndex: 3 + i,
+                    transformOrigin: 'bottom center',
+                    pointerEvents: 'none',
+                  }}
+                  initial={{
+                    y: 55,
+                    opacity: 0,
+                    rotate: card.rotation * 0.4,
+                    scale: 0.88,
+                  }}
+                  animate={{
+                    y: -82 - card.yBoost,
+                    opacity: 1,
+                    rotate: card.rotation,
+                    scale: 1,
+                  }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 155,
+                    damping: 17,
+                    delay: card.delay,
+                  }}
+                >
+                  {/* Paper invitation card — poker-card proportions */}
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      borderRadius: '6px',
+                      background: 'linear-gradient(160deg, #FFF8F0 0%, #FFF3E8 100%)',
+                      border: '1px solid rgba(175, 203, 255, 0.45)',
+                      boxShadow:
+                        '0 4px 14px rgba(0,0,0,0.13), 0 1px 3px rgba(0,0,0,0.07)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '3px',
+                      padding: '8px 6px',
+                    }}
+                  >
+                    {/* Decorative lines suggesting invitation text */}
+                    <div style={{ width: '68%', height: '1.5px', background: 'rgba(175,203,255,0.55)', borderRadius: '2px' }} />
+                    <div style={{ width: '48%', height: '1px', background: 'rgba(175,203,255,0.35)', borderRadius: '2px' }} />
+                    <div style={{ width: '58%', height: '1px', background: 'rgba(175,203,255,0.4)', borderRadius: '2px' }} />
+                    <div style={{ width: '36%', height: '1px', background: 'rgba(247,232,164,0.65)', borderRadius: '2px', marginTop: '3px' }} />
+                    <div style={{ width: '28%', height: '1px', background: 'rgba(247,232,164,0.45)', borderRadius: '2px' }} />
+                  </div>
+                </motion.div>
+              ))}
+          </AnimatePresence>
+
+          {/* ── Opening envelope SVG ──────────────────────────────── */}
+          {/*  overflow="visible" + style overflow:visible are both needed:
+               - SVG attribute controls rendering
+               - CSS property controls layout/clipping by the browser         */}
+          <motion.svg
+            width="220"
+            height="160"
+            viewBox="0 0 220 160"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            overflow="visible"
+            initial={{ scale: 1, rotate: 0, y: 0 }}
+            animate={{ scale: 1.15, rotate: -3, y: -20 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              filter: 'drop-shadow(0 30px 60px rgba(175, 203, 255, 0.7))',
+              overflow: 'visible',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              zIndex: 2,
+            }}
+          >
+            <rect x="2" y="2" width="216" height="156" rx="10" fill="#AFCBFF" stroke="#9BBEF0" strokeWidth="1.5" />
+            <rect x="8" y="8" width="204" height="144" rx="7" fill="#C8DEFF" opacity="0.4" />
+            <path d="M2 152 L110 90 L2 40" fill="#9BBEF0" opacity="0.5" />
+            <path d="M218 152 L110 90 L218 40" fill="#9BBEF0" opacity="0.5" />
+            {/* Flap — animates from closed (V-down) to open (V-up), path exits viewBox so overflow:visible is essential */}
+            <motion.path
+              d="M2 12 L110 88 L218 12"
+              fill="#AFCBFF"
+              stroke="#9BBEF0"
+              strokeWidth="1.5"
+              initial={{ d: 'M2 12 L110 88 L218 12' }}
+              animate={{ d: 'M2 12 L110 -30 L218 12' }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <circle cx="110" cy="90" r="18" fill="#F7E8A4" stroke="#E8D080" strokeWidth="1.5" />
+            <text x="110" y="95" textAnchor="middle" fontSize="16" fill="#8B7D40" style={{ fontFamily: 'serif' }}>♡</text>
+          </motion.svg>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
