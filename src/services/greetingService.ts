@@ -1,26 +1,28 @@
-import { apiFetch } from './api'
+import { apiFetch } from "./api";
 
 export interface Greeting {
-  id: string
-  name: string
-  message: string
+  id: string;
+  name: string;
+  message: string;
+  colorIndex?: number;
 }
 
 export interface NewGreetingPayload {
-  name: string
-  message: string
-  isAnonymous: boolean
+  name: string;
+  message: string;
+  isAnonymous: boolean;
+  colorIndex?: number;
 }
 
 /** GET /api/greetings — returns array ordered newest-first. */
 export function fetchGreetings(): Promise<Greeting[]> {
-  return apiFetch<Greeting[]>('/api/greetings')
+  return apiFetch<Greeting[]>("/api/greetings");
 }
 
 /** POST /api/greetings — returns the created greeting with server-assigned id. */
 export function submitGreeting(payload: NewGreetingPayload): Promise<Greeting> {
-  return apiFetch<Greeting>('/api/greetings', {
-    method: 'POST',
+  return apiFetch<Greeting>("/api/greetings", {
+    method: "POST",
     body: JSON.stringify(payload),
-  })
+  });
 }

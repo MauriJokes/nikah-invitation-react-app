@@ -1,47 +1,47 @@
-import { memo, useMemo } from 'react'
+import { memo, useMemo } from "react";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const PARTICLE_COUNT = 28
+const PARTICLE_COUNT = 28;
 
 const COLORS = [
-  'rgba(175, 203, 255, VAR)', // pastel blue
-  'rgba(175, 203, 255, VAR)', // pastel blue (weighted higher)
-  'rgba(247, 232, 164, VAR)', // soft yellow
-  'rgba(255, 248, 240, VAR)', // cream
-]
+  "rgba(2, 8, 75, VAR)", // deep navy (envelope main)
+  "rgba(26, 58, 143, VAR)", // mid navy (envelope stroke, weighted higher)
+  "rgba(26, 58, 143, VAR)", // mid navy
+  "rgba(212, 175, 55, VAR)", // gold #D4AF37
+];
 
 // Petal-like SVG paths (simple rounded shapes) rendered as background-image
 // We use simple CSS circles with border-radius for zero-dependency rendering
 function rand(min: number, max: number) {
-  return Math.random() * (max - min) + min
+  return Math.random() * (max - min) + min;
 }
 
 function pick<T>(arr: T[]): T {
-  return arr[Math.floor(Math.random() * arr.length)]
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 interface Particle {
-  id: number
-  left: number       // vw %
-  size: number       // px
-  opacity: number
-  duration: number   // s
-  delay: number      // s
-  drift: number      // px horizontal drift
-  color: string
-  borderRadius: string
+  id: number;
+  left: number; // vw %
+  size: number; // px
+  opacity: number;
+  duration: number; // s
+  delay: number; // s
+  drift: number; // px horizontal drift
+  color: string;
+  borderRadius: string;
 }
 
 function generateParticles(): Particle[] {
   return Array.from({ length: PARTICLE_COUNT }, (_, i) => {
-    const opacity = rand(0.55, 0.82)
-    const rawColor = pick(COLORS).replace('VAR', String(opacity.toFixed(2)))
-    const size = rand(4, 11)
-    const isElongated = Math.random() > 0.6
+    const opacity = rand(0.55, 0.82);
+    const rawColor = pick(COLORS).replace("VAR", String(opacity.toFixed(2)));
+    const size = rand(4, 11);
+    const isElongated = Math.random() > 0.6;
     const borderRadius = isElongated
       ? `${rand(40, 60)}% ${rand(40, 60)}% ${rand(40, 60)}% ${rand(40, 60)}%`
-      : '50%'
-    const duration = rand(12, 26)
+      : "50%";
+    const duration = rand(12, 26);
 
     return {
       id: i,
@@ -54,8 +54,8 @@ function generateParticles(): Particle[] {
       drift: rand(-60, 60),
       color: rawColor,
       borderRadius,
-    }
-  })
+    };
+  });
 }
 
 // ─── Keyframes injected once ──────────────────────────────────────────────────
@@ -70,16 +70,16 @@ function buildKeyframes(particles: Particle[]): string {
   8%   { opacity: ${p.opacity}; }
   92%  { opacity: ${p.opacity * 0.6}; }
   100% { transform: translateY(110vh) translateX(${p.drift}px) rotate(${rand(-120, 120)}deg); opacity: 0; }
-}`
+}`,
     )
-    .join('\n')
+    .join("\n");
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const BackgroundParticles = memo(function BackgroundParticles() {
   // Generate once — memo ensures this never re-runs on parent re-renders
-  const particles = useMemo(() => generateParticles(), [])
-  const keyframes = useMemo(() => buildKeyframes(particles), [particles])
+  const particles = useMemo(() => generateParticles(), []);
+  const keyframes = useMemo(() => buildKeyframes(particles), [particles]);
 
   return (
     <>
@@ -87,19 +87,19 @@ const BackgroundParticles = memo(function BackgroundParticles() {
       <div
         aria-hidden="true"
         style={{
-          position: 'fixed',
+          position: "fixed",
           inset: 0,
-          pointerEvents: 'none',
+          pointerEvents: "none",
           zIndex: 0,
-          overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         {particles.map((p) => (
           <div
             key={p.id}
             style={{
-              position: 'absolute',
-              top: '-20px',
+              position: "absolute",
+              top: "-20px",
               left: `${p.left}vw`,
               width: `${p.size}px`,
               height: `${p.size}px`,
@@ -111,7 +111,7 @@ const BackgroundParticles = memo(function BackgroundParticles() {
         ))}
       </div>
     </>
-  )
-})
+  );
+});
 
-export default BackgroundParticles
+export default BackgroundParticles;

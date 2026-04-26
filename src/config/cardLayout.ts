@@ -1,69 +1,103 @@
-export type CardId =
-  | 'hero'
-  | 'story'
-  | 'details'
-  | 'dresscode'
-  | 'greeting'
-  | 'rsvp'
+export type CardId = "hero" | "story" | "details" | "greeting" | "rsvp";
+
+export type CardShape = "arch" | "diamond" | "ticket" | "circle" | "capsule";
 
 export interface CardConfig {
-  id: CardId
-  label: string
-  icon: string
+  id: CardId;
+  label: string;
+  icon: string;
+  shape: CardShape;
   /** Desktop: % of viewport */
-  x: number
-  y: number
-  rotation: number
-  zIndex: number
-  width: string
-  /** Mobile: % of viewport (2-col staggered) */
-  mobileX: number
-  mobileY: number
-  mobileWidth: string
-  mobileRotation: number
+  x: number;
+  y: number;
+  rotation: number;
+  zIndex: number;
+  width: string;
+  /** Mobile: % of viewport */
+  mobileX: number;
+  mobileY: number;
+  mobileWidth: string;
+  mobileRotation: number;
+  /** Mobile only: extra translateY offset for overlap clustering */
+  mobileOverlapY?: number;
 }
 
 export const CARD_LAYOUT: CardConfig[] = [
   {
-    id: 'hero',
-    label: 'Invitation',
-    icon: '💍',
-    x: 28, y: 14, rotation: -2.5, zIndex: 10, width: '280px',
-    mobileX: 3, mobileY: 5, mobileRotation: -2, mobileWidth: '44vw',
+    id: "hero",
+    label: "Invitation",
+    icon: "/hero.svg",
+    shape: "arch",
+    x: 32,
+    y: 6,
+    rotation: -1.5,
+    zIndex: 5,
+    width: "260px",
+    mobileX: 12,
+    mobileY: 4,
+    mobileRotation: -1,
+    mobileWidth: "74vw",
   },
   {
-    id: 'story',
-    label: 'Our Story',
-    icon: '✨',
-    x: 62, y: 10, rotation: 3, zIndex: 8, width: '240px',
-    mobileX: 52, mobileY: 8, mobileRotation: 2.5, mobileWidth: '44vw',
+    id: "rsvp",
+    label: "RSVP",
+    icon: "/rsvp.svg",
+    shape: "diamond",
+    x: 68,
+    y: 16,
+    rotation: 2.5,
+    zIndex: 9,
+    width: "195px",
+    mobileX: 50,
+    mobileY: 45,
+    mobileRotation: 2,
+    mobileWidth: "40vw",
+    mobileOverlapY: -40,
   },
   {
-    id: 'details',
-    label: 'Event Details',
-    icon: '🕌',
-    x: 8, y: 40, rotation: -4, zIndex: 9, width: '220px',
-    mobileX: 3, mobileY: 36, mobileRotation: -2.5, mobileWidth: '44vw',
+    id: "details",
+    label: "Event Details",
+    icon: "/event-details.svg",
+    shape: "ticket",
+    x: 6,
+    y: 38,
+    rotation: -2.5,
+    zIndex: 10,
+    width: "185px",
+    mobileX: 6,
+    mobileY: 40,
+    mobileRotation: -2,
+    mobileWidth: "40vw",
+    mobileOverlapY: -30,
   },
   {
-    id: 'dresscode',
-    label: 'Dress Code',
-    icon: '👗',
-    x: 62, y: 44, rotation: 5, zIndex: 7, width: '200px',
-    mobileX: 52, mobileY: 39, mobileRotation: 3, mobileWidth: '44vw',
+    id: "story",
+    label: "Our Story",
+    icon: "/our-story.svg",
+    shape: "circle",
+    x: 67,
+    y: 55,
+    rotation: 0,
+    zIndex: 8,
+    width: "175px",
+    mobileX: 55,
+    mobileY: 70,
+    mobileRotation: 0,
+    mobileWidth: "37vw",
   },
   {
-    id: 'greeting',
-    label: 'Greetings',
-    icon: '💌',
-    x: 32, y: 55, rotation: -2, zIndex: 11, width: '250px',
-    mobileX: 3, mobileY: 66, mobileRotation: -1.5, mobileWidth: '44vw',
+    id: "greeting",
+    label: "Greetings",
+    icon: "/greetings.svg",
+    shape: "capsule",
+    x: 15,
+    y: 68,
+    rotation: -1.5,
+    zIndex: 11,
+    width: "170px",
+    mobileX: 10,
+    mobileY: 77,
+    mobileRotation: -1,
+    mobileWidth: "41vw",
   },
-  {
-    id: 'rsvp',
-    label: 'RSVP',
-    icon: '📋',
-    x: 70, y: 22, rotation: 1.5, zIndex: 6, width: '240px',
-    mobileX: 52, mobileY: 69, mobileRotation: 2, mobileWidth: '44vw',
-  },
-]
+];
