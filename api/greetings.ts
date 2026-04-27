@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { ObjectId } from "mongodb";
-import clientPromise from "./_db.js";
+import clientPromise from "./_db";
 
 const DB = process.env.MONGODB_DB ?? "nikah";
 
