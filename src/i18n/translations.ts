@@ -38,8 +38,10 @@ const langs = {
     ],
     hero_invite:
       "Dengan segala hormat dan takzim sukacita menjunjung Pengiran berangkat / mempersilakan Pehin / Tan Sri / Puan Sri / Dato / Datin / Awang / Dayang / Tuan / Puan / Encik dan Cik untuk hadir ke Majlis-Majlis bagi anakanda kami:",
-    hero_bride: "Dayangku Izyan Naqiyah binti Pengiran Haji Mohd Jaludin",
-    hero_groom: "Nik Adam Danish bin Nik Joharris",
+    hero_bride_first_name: "Dayangku Izyan Naqiyah",
+    hero_bride_last_name: "binti Pengiran Haji Mohd Jaludin",
+    hero_groom_first_name: "Nik Adam Danish",
+    hero_groom_last_name: "bin Nik Joharris",
     hero_date: "28 Disember 2026M / 18 Rejab 1448H",
     // kept for cards that still reference these
     hero_subtitle: "Bersama keluarga kami",
@@ -55,42 +57,42 @@ const langs = {
         month: "Mac",
         title: "Pertemuan Pertama",
         description:
-          "Satu pertemuan yang tidak dirancang, namun seolah-olah telah ditakdirkan. Ketika Izyan sedang mengulang kaji di rumah rakan sekelasnya semasa peperiksaan, Adam mendekati dan memulakan perbualan — atas minat yang sama terhadap League of Legends. Dari perkenalan yang sederhana itu, terbitnya sesuatu yang lebih bermakna.",
+          "Satu pertemuan yang tidak dirancang, namun seolah-olah telah ditakdirkan. Ketika Izyan sedang mengulang kaji pelajaran di rumah rakan sekelasnya, Adam mendekati dan memulakan perbualan. Segalanya bermula dengan minat yang sama terhadap sebuah permainan dalam talian, League of Legends, yang dengan mudah merapatkan mereka. Dari perkenalan yang sederhana itu, terbitnya sesuatu yang lebih bermakna.",
       },
       {
         year: "2024",
         month: "Mei",
         title: "Bermulanya Kami",
         description:
-          "Seiring waktu yang diluangkan bersama, hubungan mereka berkembang dengan begitu semula jadi. Mereka memilih untuk melangkah lebih serius dengan niat yang tulus. Izyan menemui ketenangan dalam sifat Adam yang memahami, manakala Adam tertarik dengan keikhlasan hati Izyan — satu keseimbangan yang terasa begitu sempurna.",
+          "Seiring waktu yang diluangkan bersama, hubungan mereka berkembang dengan begitu semula jadi. Mereka memilih untuk melangkah lebih serius, dengan niat yang tulus untuk mengenali dan menerima satu sama lain. Izyan menemui ketenangan dalam sifat Adam yang memahami, manakala Adam tertarik dengan keikhlasan hati Izyan — satu keseimbangan yang terasa begitu sempurna.",
       },
       {
         year: "2025",
         month: "Jan",
         title: "Bersama Mengukuh Cinta",
         description:
-          "Hari demi hari, kasih yang terjalin semakin mendalam. Dari perjalanan bersama hingga detik-detik indah yang dicipta, setiap kenangan menguatkan lagi ikatan mereka. Sebagai tanda komitmen, mereka bertukar cincin janji — simbol kesetiaan dan janji untuk sentiasa ada di sisi dalam apa jua keadaan.",
+          "Hari demi hari, kasih yang terjalin semakin mendalam. Dari perjalanan bersama hingga ke detik-detik indah yang dicipta, setiap kenangan menguatkan lagi ikatan mereka. Sebagai tanda komitmen, mereka bertukar cincin janji — simbol kesetiaan dan janji untuk sentiasa ada di sisi, dalam apa jua keadaan.",
       },
       {
         year: "2026",
         month: "Mac",
         title: "Lamaran Penuh Makna",
         description:
-          'Dalam satu panggilan lewat malam, gurauan ringan bertukar menjadi momen yang tidak dilupakan. Soalan ringkas "When can you marry me ah?" disambut dengan jawapan penuh keikhlasan, "As soon as you said YES." Saat itu, segalanya terasa nyata dan bermakna.',
+          "Walau jarak memisahkan secara fizikal, hati mereka tetap dekat. Dalam satu panggilan lewat malam, gurauan ringan bertukar menjadi momen yang tidak dilupakan. Soalan ringkas, “When can can you marry me ah?” disambut dengan jawapan penuh keikhlasan, “As soon as you said YES.” Saat itu, segalanya terasa nyata dan bermakna.",
       },
       {
         year: "2026",
         month: "Mac",
         title: "Majlis Pertunangan",
         description:
-          "Dengan penuh keyakinan dan kasih, Adam mendapatkan restu daripada kedua-dua keluarga. Perancangan yang pada awalnya disangka lebih lambat bertukar menjadi majlis pertunangan yang indah dan penuh kejutan di Brunei — hanya seminggu selepas Hari Raya, dipenuhi kegembiraan dan gelak tawa.",
+          "Dengan penuh keyakinan dan kasih, Adam mendapatkan restu daripada kedua-dua keluarga. Perancangan yang pada awalnya disangka lebih lambat, bertukar menjadi sebuah majlis pertunangan yang indah dan penuh kejutan di Brunei — hanya seminggu selepas Hari Raya. Suasana dipenuhi kegembiraan, diserikan dengan gelak tawa dan restu daripada kedua-dua belah keluarga.",
       },
       {
         year: "2026",
         month: "Dis",
         title: "Permulaan Selamanya",
         description:
-          "Kini, dengan penuh cinta, harapan, dan sokongan daripada insan tersayang, Izyan dan Adam menantikan hari untuk disatukan sebagai suami isteri — memulakan perjalanan hidup yang diberkati bersama.",
+          "Kini, mereka melangkah ke fasa baharu dalam hidup, merancang masa depan bersama. Dengan penuh cinta, harapan, dan sokongan daripada insan tersayang, Izyan dan Adam menantikan hari untuk disatukan sebagai suami isteri — memulakan perjalanan hidup yang diberkati bersama.",
       },
     ],
 
@@ -134,7 +136,7 @@ const langs = {
     dresscode_items: [
       {
         event: "Majlis Akad Nikah",
-        for: "Wanita",
+        for: "Perempuan",
         suggestion:
           "Pakaian formal sopan — abaya, salwar kameez, atau gaun elegant. Tudung amat digalakkan.",
         avoid:
@@ -153,7 +155,7 @@ const langs = {
       },
       {
         event: "Majlis Walimah",
-        for: "Wanita",
+        for: "Perempuan",
         suggestion:
           "Lehenga, sari, gaun formal atau anarkali elegant dalam warna permata yang lembut.",
         avoid: "",
@@ -266,8 +268,10 @@ const langs = {
     ],
     hero_invite:
       "With utmost respect and honor, we humbly invite Pengiran / Pehin / Tan Sri / Puan Sri / Dato / Datin / Sir / Madam / Mr / Ms to attend the wedding ceremony of our beloved children:",
-    hero_bride: "Dayangku Izyan Naqiyah binti Pengiran Haji Mohd Jaludin",
-    hero_groom: "Nik Adam Danish bin Nik Joharris",
+    hero_bride_first_name: "Dayangku Izyan Naqiyah",
+    hero_bride_last_name: "binti Pengiran Haji Mohd Jaludin",
+    hero_groom_first_name: "Nik Adam Danish",
+    hero_groom_last_name: "bin Nik Joharris",
     hero_date: "28 December 2026 / 18 Rajab 1448 AH",
     // kept for cards that still reference these
     hero_subtitle: "Together with their families",
@@ -407,7 +411,7 @@ const langs = {
     greeting_namePlaceholder: "Your name",
     greeting_messagePlaceholder: "Write your wedding wish for the couple…",
     greeting_submit: "Send Wish 💌",
-    greeting_anonymous: "Submit anonymously",
+    greeting_anonymous: "Submit privately",
     greeting_counter: (cur: number, total: number) =>
       `${cur} of ${total} wishes`,
     greeting_prev: "Previous",
@@ -451,7 +455,7 @@ const langs = {
     rsvp_guestSingular: "guest",
     rsvp_guestPlural: "guests",
     rsvp_submit: "Send RSVP 💌",
-    rsvp_anonymous: "Submit anonymously",
+    rsvp_anonymous: "Submit privately",
     rsvp_thankYou: (name: string) => `Thank you, ${name}!`,
     rsvp_confirmYes:
       "We can't wait to celebrate with you. See you on 28 December 2026! 🎉",

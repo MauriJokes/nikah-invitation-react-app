@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { useT } from "@/context/LanguageContext";
 import { submitRsvp } from "@/services/rsvpService";
 import {
@@ -324,7 +325,21 @@ export default function RSVPCard() {
             opacity: !form.name || !form.attending || loading ? 0.5 : 1,
           }}
         >
-          {loading ? "…" : t.rsvp_submit}
+          {loading ? (
+            <motion.span
+              animate={{ scale: [1, 1.4, 1] }}
+              transition={{
+                duration: 0.75,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ display: "inline-block" }}
+            >
+              ♡
+            </motion.span>
+          ) : (
+            t.rsvp_submit
+          )}
         </button>
 
         {error && (

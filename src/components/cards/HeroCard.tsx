@@ -109,7 +109,29 @@ export default function HeroCard() {
             letterSpacing: "-0.01em",
           }}
         >
-          {t.hero_bride}
+          <span
+            style={{
+              fontSize: "clamp(1.4rem, 4vw, 2.1rem)",
+              fontWeight: 500,
+              color: "#2B2B2B",
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {t.hero_bride_first_name}
+          </span>
+          <br />
+          <span
+            style={{
+              fontSize: "clamp(0.9rem, 2.5vw, 1.3rem)",
+              fontWeight: 400,
+              color: "#9CA3AF",
+              lineHeight: 1.2,
+              letterSpacing: "0.04em",
+            }}
+          >
+            {t.hero_bride_last_name}
+          </span>
         </h1>
         <span
           style={{
@@ -131,7 +153,29 @@ export default function HeroCard() {
             letterSpacing: "-0.01em",
           }}
         >
-          {t.hero_groom}
+          <span
+            style={{
+              fontSize: "clamp(1.4rem, 4vw, 2.1rem)",
+              fontWeight: 500,
+              color: "#2B2B2B",
+              lineHeight: 1.2,
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {t.hero_groom_first_name}
+          </span>
+          <br />
+          <span
+            style={{
+              fontSize: "clamp(0.9rem, 2.5vw, 1.3rem)",
+              fontWeight: 400,
+              color: "#9CA3AF",
+              lineHeight: 1.2,
+              letterSpacing: "0.04em",
+            }}
+          >
+            {t.hero_groom_last_name}
+          </span>
         </h1>
       </div>
 

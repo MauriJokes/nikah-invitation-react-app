@@ -323,16 +323,112 @@ export default function GreetingCard() {
               justifyContent: "center",
             }}
           >
-            <p
-              style={{
-                fontFamily: "Inter, sans-serif",
-                fontSize: "0.82rem",
-                color: "#9CA3AF",
-                fontStyle: "italic",
-              }}
-            >
-              …
-            </p>
+            {[
+              { x: -85, rotate: -10, scale: 0.82, opacity: 0.3, delay: 0 },
+              { x: 0, rotate: 0, scale: 1, opacity: 0.6, delay: 0.2 },
+              { x: 85, rotate: 10, scale: 0.82, opacity: 0.3, delay: 0.4 },
+            ].map((pos, i) => (
+              <motion.div
+                key={i}
+                animate={{
+                  opacity: [pos.opacity, pos.opacity * 0.45, pos.opacity],
+                }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  delay: pos.delay,
+                  ease: "easeInOut",
+                }}
+                style={{
+                  position: "absolute",
+                  width: `${CARD_W}px`,
+                  height: `${CARD_H}px`,
+                  transform: `translateX(${pos.x}px) rotate(${pos.rotate}deg) scale(${pos.scale})`,
+                  borderRadius: "12px",
+                  background: "rgba(175, 203, 255, 0.12)",
+                  border: "1.5px solid rgba(175, 203, 255, 0.25)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(6px)",
+                  overflow: "hidden",
+                  padding: "16px 14px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "2px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "14px",
+                      height: "8px",
+                      borderRadius: "4px",
+                      background: "rgba(175, 203, 255, 0.4)",
+                    }}
+                  />
+                  <div
+                    style={{
+                      width: "42px",
+                      height: "6px",
+                      borderRadius: "3px",
+                      background: "rgba(175, 203, 255, 0.25)",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    width: "55%",
+                    height: "6px",
+                    borderRadius: "3px",
+                    background: "rgba(175, 203, 255, 0.3)",
+                  }}
+                />
+                <div
+                  style={{
+                    height: "1px",
+                    background: "rgba(175, 203, 255, 0.2)",
+                    margin: "2px 0",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "95%",
+                    height: "5px",
+                    borderRadius: "3px",
+                    background: "rgba(175, 203, 255, 0.18)",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "80%",
+                    height: "5px",
+                    borderRadius: "3px",
+                    background: "rgba(175, 203, 255, 0.15)",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "65%",
+                    height: "5px",
+                    borderRadius: "3px",
+                    background: "rgba(175, 203, 255, 0.13)",
+                  }}
+                />
+                <div
+                  style={{
+                    width: "45%",
+                    height: "5px",
+                    borderRadius: "3px",
+                    background: "rgba(175, 203, 255, 0.1)",
+                  }}
+                />
+              </motion.div>
+            ))}
           </div>
         )}
 
@@ -686,7 +782,21 @@ export default function GreetingCard() {
             transition: "opacity 0.2s",
           }}
         >
-          {submitting ? "…" : t.greeting_submit}
+          {submitting ? (
+            <motion.span
+              animate={{ scale: [1, 1.4, 1] }}
+              transition={{
+                duration: 0.75,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ display: "inline-block" }}
+            >
+              ♡
+            </motion.span>
+          ) : (
+            t.greeting_submit
+          )}
         </button>
 
         {submitError && (
