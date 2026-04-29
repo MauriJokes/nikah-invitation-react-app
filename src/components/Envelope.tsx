@@ -30,7 +30,8 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
     // Start cards after flap has visibly lifted (~350ms)
     setTimeout(() => setShowCards(true), 350);
     // Give cards time to settle before transition to scattered layout
-    setTimeout(onOpen, 1700);
+    // Delay must exceed fade-out end time (1250ms delay + 550ms duration = 1800ms)
+    setTimeout(onOpen, 1900);
   };
 
   return (
@@ -44,18 +45,8 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           onClick={handleClick}
         >
-          {/* Ambient glow */}
+          {/* Envelope SVG — overflow:visible prevents flap path from being clipped */}
           <div className="relative">
-            <div
-              className="absolute inset-0 rounded-full blur-3xl opacity-40"
-              style={{
-                background:
-                  "radial-gradient(circle, #1A3A8F 0%, transparent 70%)",
-                transform: "scale(1.8)",
-              }}
-            />
-
-            {/* Envelope SVG — overflow:visible prevents flap path from being clipped */}
             <motion.svg
               width="300"
               height="218"
@@ -68,27 +59,20 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
               style={{
                 filter: "drop-shadow(0 20px 40px rgba(2, 8, 75, 0.5))",
                 overflow: "visible",
+                willChange: "transform",
               }}
             >
-              {/* Envelope body */}
-              <rect
-                x="2"
-                y="2"
-                width="216"
-                height="156"
-                rx="10"
+              {/* Envelope body — all corners pointy */}
+              <path
+                d="M2,2 L218,2 L218,158 L2,158 Z"
                 fill="#02084B"
                 stroke="#1A3A8F"
                 strokeWidth="1.5"
               />
 
               {/* Inner envelope lighter shade */}
-              <rect
-                x="8"
-                y="8"
-                width="204"
-                height="144"
-                rx="7"
+              <path
+                d="M8,8 L212,8 L212,152 L8,152 Z"
                 fill="#0A1660"
                 opacity="0.4"
               />
@@ -276,30 +260,22 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
             animate={{ scale: 1.15, rotate: -3, y: -20 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             style={{
-              filter: "drop-shadow(0 30px 60px rgba(2, 8, 75, 0.6))",
               overflow: "visible",
               position: "absolute",
               top: 0,
               left: 0,
               zIndex: 2,
+              willChange: "transform",
             }}
           >
-            <rect
-              x="2"
-              y="2"
-              width="216"
-              height="156"
-              rx="10"
+            <path
+              d="M2,2 L218,2 L218,158 L2,158 Z"
               fill="#02084B"
               stroke="#1A3A8F"
               strokeWidth="1.5"
             />
-            <rect
-              x="8"
-              y="8"
-              width="204"
-              height="144"
-              rx="7"
+            <path
+              d="M8,8 L212,8 L212,152 L8,152 Z"
               fill="#0A1660"
               opacity="0.4"
             />

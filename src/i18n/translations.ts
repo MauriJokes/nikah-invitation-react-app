@@ -135,26 +135,7 @@ const langs = {
     dresscode_heading: "Kod Pakaian",
     dresscode_items: [
       {
-        event: "Majlis Akad Nikah",
-        for: "Perempuan",
-        suggestion:
-          "Pakaian formal sopan — abaya, salwar kameez, atau gaun elegant. Tudung amat digalakkan.",
-        avoid:
-          "Elakkan pakaian tanpa lengan, hemline pendek, atau warna neon terang.",
-        emoji: "🌷",
-        palette: ["#E8D5C4", "#C4B5A5", "#8B7355"],
-      },
-      {
-        event: "Majlis Akad Nikah",
-        for: "Lelaki",
-        suggestion:
-          "Kurta-pyjama, sherwani formal, atau pakaian barat yang kemas.",
-        avoid: "Sila elakkan seluar pendek atau pakaian kasual.",
-        emoji: "🕌",
-        palette: ["#3D3530", "#6B5C50", "#9B8B7E"],
-      },
-      {
-        event: "Majlis Walimah",
+        event: "Majlis Bersanding",
         for: "Perempuan",
         suggestion:
           "Lehenga, sari, gaun formal atau anarkali elegant dalam warna permata yang lembut.",
@@ -163,7 +144,7 @@ const langs = {
         palette: ["#D4A8C7", "#B8849E", "#8B5B77"],
       },
       {
-        event: "Majlis Walimah",
+        event: "Majlis Bersanding",
         for: "Lelaki",
         suggestion:
           "Sherwani, sut formal atau bandhgala. Warna navy, gading, dan biru tua digalakkan.",
@@ -365,24 +346,7 @@ const langs = {
     dresscode_heading: "Dress Code",
     dresscode_items: [
       {
-        event: "Nikkah Ceremony",
-        for: "Ladies",
-        suggestion:
-          "Modest formal wear — abayas, salwar kameez, or elegant dresses. Headscarves respectfully encouraged.",
-        avoid: "Avoid sleeveless, short hemlines, or bright neon colours.",
-        emoji: "🌷",
-        palette: ["#E8D5C4", "#C4B5A5", "#8B7355"],
-      },
-      {
-        event: "Nikkah Ceremony",
-        for: "Gentlemen",
-        suggestion: "Kurta-pyjama, formal sherwanis, or neat western formals.",
-        avoid: "Please avoid shorts or casual attire.",
-        emoji: "🕌",
-        palette: ["#3D3530", "#6B5C50", "#9B8B7E"],
-      },
-      {
-        event: "Walima Reception",
+        event: "Wedding Reception",
         for: "Ladies",
         suggestion:
           "Lehengas, sarees, formal gowns or elegant anarkalis in soft jewel tones.",
@@ -391,7 +355,7 @@ const langs = {
         palette: ["#D4A8C7", "#B8849E", "#8B5B77"],
       },
       {
-        event: "Walima Reception",
+        event: "Wedding Reception",
         for: "Gentlemen",
         suggestion:
           "Sherwanis, formal suits or bandhgalas. Navy, ivory, and deep blues encouraged.",
