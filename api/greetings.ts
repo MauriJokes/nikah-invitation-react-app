@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { ObjectId } from "mongodb";
 import clientPromise from "./_db";
+import { appendRow } from "./_sheets";
 
 const DB = process.env.MONGODB_DB ?? "nikah";
 
@@ -43,7 +44,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         colorIndex,
         createdAt: new Date(),
       };
+      // Write to Sheets first — if this fails, MongoDB is never touched
+      await appendRow("Greetings", [
+        new Date().toISOString(),
+        isAnonymous ? "Anonymous" : name,
+        message,
+        colorIndex ?? "",
+        isAnonymous ? "Yes" : "No",
+      ]);
+
       const result = await col.insertOne(doc);
+
       return res.status(201).json({
         id: result.insertedId.toHexString(),
         name,

@@ -5,11 +5,13 @@ import ScatteredLayout from "@/components/ScatteredLayout";
 import BackgroundParticles from "@/components/BackgroundParticles";
 import { LanguageProvider, useLang, useT } from "@/context/LanguageContext";
 import { useFocusReset } from "@/hooks/useFocusReset";
+import { WALKTHROUGH_STORAGE_KEY } from "@/config/walkthrough";
 
 type AppState = "envelope" | "cards";
 
 function AppInner() {
   const [appState, setAppState] = useState<AppState>("envelope");
+  const [showWalkthrough, setShowWalkthrough] = useState(false);
   const t = useT();
   const { lang, setLang } = useLang();
 
@@ -23,6 +25,10 @@ function AppInner() {
 
   const handleEnvelopeOpen = () => {
     setAppState("cards");
+    // Show walkthrough only on first visit
+    if (!localStorage.getItem(WALKTHROUGH_STORAGE_KEY)) {
+      setShowWalkthrough(true);
+    }
     if (!audioRef.current) {
       const audio = new Audio("/music.mp3");
       audio.loop = true;
@@ -223,7 +229,11 @@ function AppInner() {
       </AnimatePresence>
 
       {/* Scattered cards */}
-      <ScatteredLayout visible={appState === "cards"} />
+      <ScatteredLayout
+        visible={appState === "cards"}
+        showWalkthrough={showWalkthrough}
+        onWalkthroughDone={() => setShowWalkthrough(false)}
+      />
 
       {/* Footer */}
       <p

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { forwardRef, useRef } from "react";
 import { motion } from "framer-motion";
 import type { CardConfig, CardId, CardShape } from "@/config/cardLayout";
 import { useT } from "@/context/LanguageContext";
@@ -652,15 +652,18 @@ interface CardProps {
   isMobile: boolean;
 }
 
-export default function Card({
-  config,
-  index,
-  isActive,
-  onClick,
-  onDragStart: notifyDragStart,
-  onDragEnd: notifyDragEnd,
-  isMobile,
-}: CardProps) {
+export default forwardRef<HTMLDivElement, CardProps>(function Card(
+  {
+    config,
+    index,
+    isActive,
+    onClick,
+    onDragStart: notifyDragStart,
+    onDragEnd: notifyDragEnd,
+    isMobile,
+  },
+  ref,
+) {
   const { id, icon, rotation, width, shape, mobileOverlapY } = config;
   const t = useT();
   const label = t[LABEL_KEYS[id]] as string;
@@ -679,6 +682,7 @@ export default function Card({
 
   return (
     <motion.div
+      ref={ref}
       key={id}
       className="cursor-pointer"
       style={{
@@ -785,4 +789,4 @@ export default function Card({
       </div>
     </motion.div>
   );
-}
+});

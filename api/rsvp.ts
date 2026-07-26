@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import clientPromise from "./_db";
+import { appendRow } from "./_sheets";
 
 const DB = process.env.MONGODB_DB ?? "nikah";
 
@@ -32,7 +33,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const now = new Date();
 
     if (message !== undefined) {
-      // Mirror NestJS transaction: create greeting + rsvp atomically
+      const ts = now.toISOString();
+
+      // Write to Sheets first — if this fails, MongoDB is never touched
+      await Promise.all([
+        appendRow("RSVP", [
+          ts,
+          name,
+          attendance,
+          guests,
+          message,
+          isAnonymous ? "Yes" : "No",
+        ]),
+        appendRow("Greetings", [
+          ts,
+          isAnonymous ? "Anonymous" : name,
+          message,
+          colorIndex ?? "",
+          isAnonymous ? "Yes" : "No",
+        ]),
+      ]);
+
+      // Sheets succeeded — now do the atomic MongoDB write
       const session = client.startSession();
       try {
         session.startTransaction();
@@ -69,6 +91,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         await session.endSession();
       }
     } else {
+      // Write to Sheets first — if this fails, MongoDB is never touched
+      await appendRow("RSVP", [
+        now.toISOString(),
+        name,
+        attendance,
+        guests,
+        "",
+        "No",
+      ]);
+
       await rsvpCol.insertOne({
         name,
         attendance,

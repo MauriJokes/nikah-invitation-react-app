@@ -43,20 +43,109 @@ export default function HeroCard() {
       </p>
 
       {/* Parent names */}
-      <div className="flex flex-col gap-1 mb-6">
-        {t.hero_parents.map((name) => (
-          <p
-            key={name}
-            style={{
-              fontFamily: '"Playfair Display", serif',
-              fontSize: "clamp(0.78rem, 2vw, 0.9rem)",
-              color: "#4B5563",
-              lineHeight: 1.5,
-            }}
-          >
-            {name}
-          </p>
-        ))}
+      <div className="w-full text-center flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          {t.hero_izyan_family.map((name) => {
+            const honorific = "Yang Mulia";
+            const hasHonorific = name.startsWith(honorific);
+            const namePart = hasHonorific
+              ? name.slice(honorific.length + 1)
+              : name;
+            const binMatch = namePart.match(/ (binti|bin) /i);
+            const mainName = binMatch
+              ? namePart.slice(0, binMatch.index)
+              : namePart;
+            const binPart = binMatch
+              ? namePart.slice(binMatch.index! + 1)
+              : null;
+            return (
+              <div key={name} className="flex flex-col gap-0.5">
+                {hasHonorific && (
+                  <span
+                    style={{
+                      fontFamily: '"Playfair Display", serif',
+                      fontSize: "0.6rem",
+                      color: "#9CA3AF",
+                      fontStyle: "italic",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    {honorific}
+                  </span>
+                )}
+                <p
+                  style={{
+                    fontFamily: '"Playfair Display", serif',
+                    fontSize: "0.8rem",
+                    color: "#4B5563",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {mainName}
+                </p>
+                {binPart && (
+                  <span
+                    style={{
+                      fontFamily: '"Playfair Display", serif',
+                      fontSize: "0.8rem",
+                      color: "#4B5563",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {binPart}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div
+          className="self-center"
+          style={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: "0.72rem",
+            color: "#4B5563",
+            lineHeight: 1.5,
+          }}
+        >
+          &amp;
+        </div>
+        <div className="flex flex-col gap-2 mb-6">
+          {t.hero_adam_family.map((name) => {
+            const honorific = "Yang Mulia";
+            const hasHonorific = name.startsWith(honorific);
+            const mainName = hasHonorific
+              ? name.slice(honorific.length + 1)
+              : name;
+            return (
+              <div key={name} className="flex flex-col gap-0.5">
+                {hasHonorific && (
+                  <span
+                    style={{
+                      fontFamily: '"Playfair Display", serif',
+                      fontSize: "0.6rem",
+                      color: "#9CA3AF",
+                      fontStyle: "italic",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    {honorific}
+                  </span>
+                )}
+                <p
+                  style={{
+                    fontFamily: '"Playfair Display", serif',
+                    fontSize: "0.8rem",
+                    color: "#4B5563",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {mainName}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Invite paragraph */}
@@ -201,11 +290,11 @@ export default function HeroCard() {
       </div>
 
       {/* Floral decoration */}
-      <div className="mt-7 flex gap-3 text-2xl opacity-60">
+      {/* <div className="mt-7 flex gap-3 text-2xl opacity-60">
         <span>🌸</span>
         <span>💐</span>
         <span>🌸</span>
-      </div>
+      </div> */}
 
       {/* Quote */}
       <p

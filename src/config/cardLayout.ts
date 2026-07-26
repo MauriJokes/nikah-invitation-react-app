@@ -48,7 +48,7 @@ export const CARD_LAYOUT: CardConfig[] = [
     rotation: 2.5,
     zIndex: 9,
     width: "195px",
-    mobileX: 50,
+    mobileX: 45,
     mobileY: 45,
     mobileRotation: 2,
     mobileWidth: "40vw",

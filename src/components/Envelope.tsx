@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useT } from "@/context/LanguageContext";
+import logo from "@/assets/logo.png";
 
 interface EnvelopeProps {
   onOpen: () => void;
@@ -99,16 +100,15 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
                 stroke="#B8960C"
                 strokeWidth="1.5"
               />
-              <text
-                x="110"
-                y="95"
-                textAnchor="middle"
-                fontSize="16"
-                fill="#8B7D40"
-                style={{ fontFamily: "serif" }}
-              >
-                ♡
-              </text>
+              <image
+                href={logo}
+                x="92"
+                y="72"
+                width="36"
+                height="36"
+                preserveAspectRatio="xMidYMid meet"
+                style={{ pointerEvents: "none" }}
+              />
             </motion.svg>
           </div>
 
@@ -299,16 +299,15 @@ export default function Envelope({ onOpen }: EnvelopeProps) {
               stroke="#B8960C"
               strokeWidth="1.5"
             />
-            <text
-              x="110"
-              y="95"
-              textAnchor="middle"
-              fontSize="16"
-              fill="#8B7D40"
-              style={{ fontFamily: "serif" }}
-            >
-              ♡
-            </text>
+            <image
+              href={logo}
+              x="92"
+              y="72"
+              width="36"
+              height="36"
+              preserveAspectRatio="xMidYMid meet"
+              style={{ pointerEvents: "none" }}
+            />
           </motion.svg>
         </motion.div>
       )}

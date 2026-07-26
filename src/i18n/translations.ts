@@ -23,6 +23,28 @@ const langs = {
     cardLabel_rsvp: "RSVP",
     cardClickHint: "klik untuk lihat →",
 
+    // ── Walkthrough ───────────────────────────────────────────────────────────
+    walkthrough_welcome_title: "Selamat Datang!",
+    walkthrough_welcome_hint:
+      "Ini adalah jemputan digital anda. Jom kami tunjukkan apa yang ada di sini 💌",
+    walkthrough_skip: "Langkau",
+    walkthrough_next: "Seterusnya",
+    walkthrough_done: "Selesai",
+    walkthrough_hero_title: "Jemputan Majlis",
+    walkthrough_hero_hint: "Kad jemputan peribadi anda — tekan untuk buka",
+    walkthrough_rsvp_title: "RSVP",
+    walkthrough_rsvp_hint: "Sahkan kehadiran anda di majlis kami",
+    walkthrough_story_title: "Kisah Kami",
+    walkthrough_story_hint:
+      "Perjalanan cinta Izyan & Adam dari mula hingga kini",
+    walkthrough_details_title: "Butiran Majlis",
+    walkthrough_details_hint: "Tarikh, masa & tempat majlis perkahwinan",
+    walkthrough_greeting_title: "Ucapan",
+    walkthrough_greeting_hint:
+      "Tinggalkan ucapan dan doa restu untuk pengantin",
+    walkthrough_drag_title: "Boleh Diseret!",
+    walkthrough_drag_hint: "Cuba gerakkan kad-kad ini ke mana sahaja anda suka",
+
     // ── Card preview (scattered layout) ────────────────────────────────────────
     cardLabel_hero_preview: "Majlis Jemputan",
     cardLabel_details_preview: "Tarikh & Tempat",
@@ -30,11 +52,17 @@ const langs = {
     // ── Hero card ─────────────────────────────────────────────────────────────
     hero_salutation: "ASSALAMU'ALAIKUM WR. WB.",
     hero_grace: "Dengan izin Allah S.W.T dan rahmatnya, kami:",
-    hero_parents: [
-      "Pengiran Haji Mohamad Jaludin bin Pengiran Haji Puteh",
-      "Dayang Masdiah binti Awang Haji Tuah",
-      "Nik Joharris bin Nik Ahmad",
-      "Nerisa binti Nawi",
+    hero_izyan_family: [
+      "Yang Mulia Pengiran Haji Mohamad Jaludin bin Pengiran Haji Puteh",
+      "Yang Mulia Dayang Masdiah binti Awang Haji Tuah",
+      "Yang Mulia Awangku Mohamad Izzan Naqiuddin bin Pengiran Haji Mohamad Jaludin",
+      "Yang Mulia Awangku Mohamad Izzan Qayyum bin Pengiran Haji Mohamad Jaludin",
+    ],
+    hero_adam_family: [
+      "Yang Mulia Nik Joharris bin Nik Ahmad",
+      "Yang Mulia Nerisa binti Nawi",
+      "Yang Mulia Nik Arman Danish bin Nik Joharris",
+      "Yang Mulia Nik Azlan bin Nik Joharris",
     ],
     hero_invite:
       "Dengan segala hormat dan takzim sukacita menjunjung Pengiran berangkat / mempersilakan Pehin / Tan Sri / Puan Sri / Dato / Datin / Awang / Dayang / Tuan / Puan / Encik dan Cik untuk hadir ke Majlis-Majlis bagi anakanda kami:",
@@ -118,9 +146,9 @@ const langs = {
         isoDate: "2026-12-28T19:00:00",
         date: "Isnin, 28 Disember 2026M / 18 Rejab 1448H",
         time: "7:00 petang – 10:00 malam",
-        venue: "Tarindak D\u2019Polo, Royal Berkshire Hall",
+        venue: "The Rizqun International Hotel",
         address:
-          "Jerudong Park Polo & Riding Park, Kg. Jerudong, BG3122, Brunei Darussalam",
+          "Abdul Razak Complex, Jln Gadong, Bandar Seri Begawan BE3519, Brunei Darussalam",
         schedule: [
           "Menerima Jemputan",
           "Majlis Persandingan",
@@ -234,6 +262,28 @@ const langs = {
     cardLabel_rsvp: "RSVP",
     cardClickHint: "click to view →",
 
+    // ── Walkthrough ───────────────────────────────────────────────────────────
+    walkthrough_welcome_title: "Welcome!",
+    walkthrough_welcome_hint:
+      "This is your digital invitation. Let us show you around 💌",
+    walkthrough_skip: "Skip",
+    walkthrough_next: "Next",
+    walkthrough_done: "Done",
+    walkthrough_hero_title: "Wedding Invitation",
+    walkthrough_hero_hint: "Your personal invitation card — tap to open it",
+    walkthrough_rsvp_title: "RSVP",
+    walkthrough_rsvp_hint: "Confirm your attendance at our celebration",
+    walkthrough_story_title: "Our Story",
+    walkthrough_story_hint:
+      "The love journey of Izyan & Adam from start to now",
+    walkthrough_details_title: "Event Details",
+    walkthrough_details_hint: "Date, time & venue of the wedding ceremony",
+    walkthrough_greeting_title: "Greetings",
+    walkthrough_greeting_hint: "Leave a wish and blessing for the couple",
+    walkthrough_drag_title: "Cards are Draggable!",
+    walkthrough_drag_hint:
+      "Try dragging any card to rearrange them however you like",
+
     // ── Card preview (scattered layout) ────────────────────────────────────────
     cardLabel_hero_preview: "Wedding Ceremony",
     cardLabel_details_preview: "Date & Location",
@@ -241,11 +291,17 @@ const langs = {
     // ── Hero card ─────────────────────────────────────────────────────────────
     hero_salutation: "ASSALAMU'ALAIKUM WR. WB.",
     hero_grace: "By the grace and blessings of Allah S.W.T, we",
-    hero_parents: [
-      "Pengiran Haji Mohamad Jaludin bin Pengiran Haji Puteh",
-      "Dayang Masdiah binti Awang Haji Tuah",
-      "Nik Joharris bin Nik Ahmad",
-      "Nerisa binti Nawi",
+    hero_izyan_family: [
+      "Yang Mulia Pengiran Haji Mohamad Jaludin bin Pengiran Haji Puteh",
+      "Yang Mulia Dayang Masdiah binti Awang Haji Tuah",
+      "Yang Mulia Awangku Mohamad Izzan Naqiuddin bin Pengiran Haji Mohamad Jaludin",
+      "Yang Mulia Awangku Mohamad Izzan Qayyum bin Pengiran Haji Mohamad Jaludin",
+    ],
+    hero_adam_family: [
+      "Yang Mulia Nik Joharris bin Nik Ahmad",
+      "Yang Mulia Nerisa binti Nawi",
+      "Yang Mulia Nik Arman Danish bin Nik Joharris",
+      "Yang Mulia Nik Azlan bin Nik Joharris",
     ],
     hero_invite:
       "With utmost respect and honor, we humbly invite Pengiran / Pehin / Tan Sri / Puan Sri / Dato / Datin / Sir / Madam / Mr / Ms to attend the wedding ceremony of our beloved children:",
@@ -329,9 +385,9 @@ const langs = {
         isoDate: "2026-12-28T19:00:00",
         date: "Monday, 28 December 2026 / 18 Rajab 1448 AH",
         time: "7:00 PM – 10:00 PM",
-        venue: "Tarindak D\u2019Polo, Royal Berkshire Hall",
+        venue: "The Rizqun International Hotel",
         address:
-          "Jerudong Park Polo & Riding Park, Kg. Jerudong, BG3122, Brunei Darussalam",
+          "Abdul Razak Complex, Jln Gadong, Bandar Seri Begawan BE3519, Brunei Darussalam",
         schedule: [
           "Arrival of Guests & Invitees",
           "Izyan and Adam's Wedding Reception",
