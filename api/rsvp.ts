@@ -1,6 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import clientPromise from "./_db";
 import { appendRow } from "./_sheets";
+import {
+  isInternalInvite,
+  MAX_GUESTS_DEFAULT,
+  MAX_GUESTS_INTERNAL,
+} from "./_invite";
 
 const DB = process.env.MONGODB_DB ?? "nikah";
 
@@ -17,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       message,
       isAnonymous,
       colorIndex,
-      externalGuest,
+      inviteCode,
     } = req.body as {
       name: string;
       attendance: "yes" | "no";
@@ -25,7 +30,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       message?: string;
       isAnonymous?: boolean;
       colorIndex?: number;
-      externalGuest?: boolean;
+      inviteCode?: string;
     };
 
     if (!name || !attendance || !guests || guests < 1) {
@@ -34,13 +39,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         .json({ error: "name, attendance, and guests (≥1) are required" });
     }
 
-    const maxGuests = externalGuest ? 2 : 10;
+    const maxGuests = isInternalInvite(inviteCode)
+      ? MAX_GUESTS_INTERNAL
+      : MAX_GUESTS_DEFAULT;
     if (!Number.isInteger(guests) || guests > maxGuests) {
-      return res
-        .status(400)
-        .json({
-          error: `guests must be a whole number between 1 and ${maxGuests}`,
-        });
+      return res.status(400).json({
+        error: `guests must be a whole number between 1 and ${maxGuests}`,
+      });
     }
 
     const client = await clientPromise;

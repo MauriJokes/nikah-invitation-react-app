@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useT } from "@/context/LanguageContext";
 import { submitRsvp } from "@/services/rsvpService";
@@ -8,7 +8,13 @@ import {
   FocusSelect,
 } from "@/components/FocusInput";
 import { pickRandomColorIndex } from "@/config/cardColors";
-import { getMaxGuests, isExternalGuest } from "@/config/externalGuest";
+import {
+  clearInviteCode,
+  getInviteCode,
+  MAX_GUESTS_DEFAULT,
+  MAX_GUESTS_INTERNAL,
+} from "@/config/invite";
+import { checkInviteCode } from "@/services/inviteService";
 
 interface FormData {
   name: string;
@@ -30,8 +36,20 @@ export default function RSVPCard() {
   const [error, setError] = useState<string | null>(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const assignedColorIndex = useRef<number | null>(null);
-  const [externalGuest] = useState(isExternalGuest);
-  const maxGuests = getMaxGuests(externalGuest);
+  const [inviteCode] = useState(getInviteCode);
+  const [isInternal, setIsInternal] = useState(false);
+  const maxGuests = isInternal ? MAX_GUESTS_INTERNAL : MAX_GUESTS_DEFAULT;
+
+  // The server decides whether the code is valid; until it answers, the restricted default applies
+  useEffect(() => {
+    if (!inviteCode) return;
+    checkInviteCode(inviteCode)
+      .then((internal) => {
+        setIsInternal(internal);
+        if (!internal) clearInviteCode();
+      })
+      .catch(() => {});
+  }, [inviteCode]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +62,7 @@ export default function RSVPCard() {
         guests: Math.min(Number(form.guests), maxGuests),
         message: form.message || undefined,
         isAnonymous,
-        externalGuest,
+        inviteCode: inviteCode ?? undefined,
         colorIndex: form.message.trim()
           ? (assignedColorIndex.current ?? undefined)
           : undefined,

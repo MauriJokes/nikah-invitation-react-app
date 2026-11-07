@@ -6,7 +6,7 @@ import BackgroundParticles from "@/components/BackgroundParticles";
 import { LanguageProvider, useLang, useT } from "@/context/LanguageContext";
 import { useFocusReset } from "@/hooks/useFocusReset";
 import { WALKTHROUGH_STORAGE_KEY } from "@/config/walkthrough";
-import { syncExternalGuestFromUrl } from "@/config/externalGuest";
+import { syncInviteFromUrl } from "@/config/invite";
 
 type AppState = "envelope" | "cards";
 
@@ -25,7 +25,7 @@ function AppInner() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
   useEffect(() => {
-    syncExternalGuestFromUrl();
+    syncInviteFromUrl();
   }, []);
 
   const handleEnvelopeOpen = () => {
