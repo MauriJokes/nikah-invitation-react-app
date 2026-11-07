@@ -8,6 +8,7 @@ import {
   FocusSelect,
 } from "@/components/FocusInput";
 import { pickRandomColorIndex } from "@/config/cardColors";
+import { getMaxGuests, isExternalGuest } from "@/config/externalGuest";
 
 interface FormData {
   name: string;
@@ -29,6 +30,8 @@ export default function RSVPCard() {
   const [error, setError] = useState<string | null>(null);
   const [isAnonymous, setIsAnonymous] = useState(false);
   const assignedColorIndex = useRef<number | null>(null);
+  const [externalGuest] = useState(isExternalGuest);
+  const maxGuests = getMaxGuests(externalGuest);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,9 +41,10 @@ export default function RSVPCard() {
       await submitRsvp({
         name: form.name,
         attendance: form.attending as "yes" | "no",
-        guests: Number(form.guests),
+        guests: Math.min(Number(form.guests), maxGuests),
         message: form.message || undefined,
         isAnonymous,
+        externalGuest,
         colorIndex: form.message.trim()
           ? (assignedColorIndex.current ?? undefined)
           : undefined,
@@ -205,7 +209,7 @@ export default function RSVPCard() {
               value={form.guests}
               onChange={(e) => setForm({ ...form, guests: e.target.value })}
             >
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+              {Array.from({ length: maxGuests }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>
                   {n} {n === 1 ? t.rsvp_guestSingular : t.rsvp_guestPlural}
                 </option>

@@ -10,20 +10,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, attendance, guests, message, isAnonymous, colorIndex } =
-      req.body as {
-        name: string;
-        attendance: "yes" | "no";
-        guests: number;
-        message?: string;
-        isAnonymous?: boolean;
-        colorIndex?: number;
-      };
+    const {
+      name,
+      attendance,
+      guests,
+      message,
+      isAnonymous,
+      colorIndex,
+      externalGuest,
+    } = req.body as {
+      name: string;
+      attendance: "yes" | "no";
+      guests: number;
+      message?: string;
+      isAnonymous?: boolean;
+      colorIndex?: number;
+      externalGuest?: boolean;
+    };
 
     if (!name || !attendance || !guests || guests < 1) {
       return res
         .status(400)
         .json({ error: "name, attendance, and guests (≥1) are required" });
+    }
+
+    const maxGuests = externalGuest ? 2 : 10;
+    if (!Number.isInteger(guests) || guests > maxGuests) {
+      return res
+        .status(400)
+        .json({
+          error: `guests must be a whole number between 1 and ${maxGuests}`,
+        });
     }
 
     const client = await clientPromise;

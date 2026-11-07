@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Envelope from "@/components/Envelope";
 import ScatteredLayout from "@/components/ScatteredLayout";
@@ -6,6 +6,7 @@ import BackgroundParticles from "@/components/BackgroundParticles";
 import { LanguageProvider, useLang, useT } from "@/context/LanguageContext";
 import { useFocusReset } from "@/hooks/useFocusReset";
 import { WALKTHROUGH_STORAGE_KEY } from "@/config/walkthrough";
+import { syncExternalGuestFromUrl } from "@/config/externalGuest";
 
 type AppState = "envelope" | "cards";
 
@@ -22,6 +23,10 @@ function AppInner() {
   // Audio is created lazily on the envelope click — satisfies browser autoplay policy.
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+
+  useEffect(() => {
+    syncExternalGuestFromUrl();
+  }, []);
 
   const handleEnvelopeOpen = () => {
     setAppState("cards");

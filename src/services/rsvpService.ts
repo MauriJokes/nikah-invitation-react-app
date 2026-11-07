@@ -7,6 +7,7 @@ export interface RsvpPayload {
   message?: string;
   isAnonymous: boolean;
   colorIndex?: number;
+  externalGuest?: boolean;
 }
 
 /** POST /api/rsvp — returns void (backend responds 201 or 204). */
